@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions targetNamespace="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Imports">
+      <xsd:import schemaLocation="schemas.ipcommerce.com_CWS_v2.0_DataServices_TMS.xsd" namespace="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS"/>
+      <xsd:import schemaLocation="schemas.ipcommerce.com_CWS_v2.0_Transactions.xsd" namespace="http://schemas.ipcommerce.com/CWS/v2.0/Transactions"/>
+      <xsd:import schemaLocation="schemas.ipcommerce.com_CWS_v2.0_ServiceInformation.xsd" namespace="http://schemas.ipcommerce.com/CWS/v2.0/ServiceInformation"/>
+      <xsd:import schemaLocation="schemas.ipcommerce.com_CWS_v2.0_Transactions_Bankcard.xsd" namespace="http://schemas.ipcommerce.com/CWS/v2.0/Transactions/Bankcard"/>
+      <xsd:import schemaLocation="schemas.ipcommerce.com_CWS_v2.0_Transactions_ElectronicChecking.xsd" namespace="http://schemas.ipcommerce.com/CWS/v2.0/Transactions/ElectronicChecking"/>
+      <xsd:import schemaLocation="schemas.ipcommerce.com_CWS_v2.0_Transactions_Bankcard_Pro.xsd" namespace="http://schemas.ipcommerce.com/CWS/v2.0/Transactions/Bankcard/Pro"/>
+      <xsd:import schemaLocation="schemas.ipcommerce.com_CWS_v2.0_Transactions_StoredValue.xsd" namespace="http://schemas.ipcommerce.com/CWS/v2.0/Transactions/StoredValue"/>
+      <xsd:import schemaLocation="schemas.ipcommerce.com_CWS_v2.0_DataServices_TMS_Faults.xsd" namespace="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+      <xsd:import schemaLocation="schemas.microsoft.com_2003_10_Serialization.xsd" namespace="http://schemas.microsoft.com/2003/10/Serialization/"/>
+      <xsd:import schemaLocation="schemas.microsoft.com_2003_10_Serialization_Arrays.xsd" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+      <xsd:import schemaLocation="schemas.ipcommerce.com_CWS_v2.0_DataServices.xsd" namespace="http://schemas.ipcommerce.com/CWS/v2.0/DataServices"/>
+      <xsd:import schemaLocation="schemas.ipcommerce.com_Ipc.General.WCF.Contracts.Common.xsd" namespace="http://schemas.ipcommerce.com/Ipc.General.WCF.Contracts.Common"/>
+      <xsd:import schemaLocation="schemas.ipcommerce.com_Ipc.General.WCF.Contracts.Common_External.xsd" namespace="http://schemas.ipcommerce.com/Ipc.General.WCF.Contracts.Common/External"/>
+      <xsd:import schemaLocation="schemas.ipcommerce.com_Identity_1.0.xsd" namespace="http://schemas.ipcommerce.com/Identity/1.0/"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ITMSOperations_Ping_InputMessage">
+    <wsdl:part name="parameters" element="q1:Ping" xmlns:q1="http://schemas.ipcommerce.com/Ipc.General.WCF.Contracts.Common"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_Ping_OutputMessage">
+    <wsdl:part name="parameters" element="q2:PingResponse" xmlns:q2="http://schemas.ipcommerce.com/Ipc.General.WCF.Contracts.Common"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryBatch_InputMessage">
+    <wsdl:part name="parameters" element="tns:QueryBatch"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryBatch_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QueryBatchResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryBatch_DataServicesUnavailableFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q3:DataServicesUnavailableFault" xmlns:q3="http://schemas.ipcommerce.com/CWS/v2.0/DataServices"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryBatch_TMSUnknownServiceKeyFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q4:TMSUnknownServiceKeyFault" xmlns:q4="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryBatch_ExpiredTokenFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q5:ExpiredTokenFault" xmlns:q5="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryBatch_InvalidTokenFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q6:InvalidTokenFault" xmlns:q6="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryBatch_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q7:AuthenticationFault" xmlns:q7="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryBatch_TMSTransactionFailedFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q8:TMSTransactionFailedFault" xmlns:q8="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryBatch_TMSOperationNotSupportedFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q9:TMSOperationNotSupportedFault" xmlns:q9="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryBatch_TMSUnavailableFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q10:TMSUnavailableFault" xmlns:q10="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionFamilies_InputMessage">
+    <wsdl:part name="parameters" element="tns:QueryTransactionFamilies"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionFamilies_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QueryTransactionFamiliesResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionFamilies_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q11:AuthenticationFault" xmlns:q11="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionFamilies_InvalidTokenFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q12:InvalidTokenFault" xmlns:q12="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionFamilies_TMSTransactionFailedFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q13:TMSTransactionFailedFault" xmlns:q13="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionFamilies_TMSUnavailableFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q14:TMSUnavailableFault" xmlns:q14="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionFamilies_DataServicesUnavailableFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q15:DataServicesUnavailableFault" xmlns:q15="http://schemas.ipcommerce.com/CWS/v2.0/DataServices"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionFamilies_TMSUnknownServiceKeyFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q16:TMSUnknownServiceKeyFault" xmlns:q16="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionFamilies_ExpiredTokenFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q17:ExpiredTokenFault" xmlns:q17="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:QueryTransactionsDetail"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QueryTransactionsDetailResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsDetail_DataServicesUnavailableFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q18:DataServicesUnavailableFault" xmlns:q18="http://schemas.ipcommerce.com/CWS/v2.0/DataServices"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsDetail_InvalidTokenFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q19:InvalidTokenFault" xmlns:q19="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsDetail_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q20:AuthenticationFault" xmlns:q20="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsDetail_TMSTransactionFailedFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q21:TMSTransactionFailedFault" xmlns:q21="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsDetail_TMSUnavailableFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q22:TMSUnavailableFault" xmlns:q22="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsDetail_TMSUnknownServiceKeyFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q23:TMSUnknownServiceKeyFault" xmlns:q23="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsDetail_ExpiredTokenFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q24:ExpiredTokenFault" xmlns:q24="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsSummary_InputMessage">
+    <wsdl:part name="parameters" element="tns:QueryTransactionsSummary"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsSummary_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QueryTransactionsSummaryResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsSummary_TMSTransactionFailedFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q25:TMSTransactionFailedFault" xmlns:q25="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsSummary_TMSUnknownServiceKeyFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q26:TMSUnknownServiceKeyFault" xmlns:q26="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsSummary_ExpiredTokenFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q27:ExpiredTokenFault" xmlns:q27="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsSummary_InvalidTokenFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q28:InvalidTokenFault" xmlns:q28="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsSummary_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q29:AuthenticationFault" xmlns:q29="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsSummary_DataServicesUnavailableFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q30:DataServicesUnavailableFault" xmlns:q30="http://schemas.ipcommerce.com/CWS/v2.0/DataServices"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryTransactionsSummary_TMSUnavailableFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q31:TMSUnavailableFault" xmlns:q31="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedSummary_InputMessage">
+    <wsdl:part name="parameters" element="tns:QueryRejectedSummary"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedSummary_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QueryRejectedSummaryResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedSummary_DataServicesUnavailableFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q32:DataServicesUnavailableFault" xmlns:q32="http://schemas.ipcommerce.com/CWS/v2.0/DataServices"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedSummary_TMSUnknownServiceKeyFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q33:TMSUnknownServiceKeyFault" xmlns:q33="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedSummary_ExpiredTokenFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q34:ExpiredTokenFault" xmlns:q34="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedSummary_InvalidTokenFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q35:InvalidTokenFault" xmlns:q35="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedSummary_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q36:AuthenticationFault" xmlns:q36="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedSummary_TMSTransactionFailedFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q37:TMSTransactionFailedFault" xmlns:q37="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedSummary_TMSOperationNotSupportedFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q38:TMSOperationNotSupportedFault" xmlns:q38="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedSummary_TMSUnavailableFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q39:TMSUnavailableFault" xmlns:q39="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:QueryRejectedDetail"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QueryRejectedDetailResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedDetail_TMSOperationNotSupportedFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q40:TMSOperationNotSupportedFault" xmlns:q40="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedDetail_TMSUnavailableFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q41:TMSUnavailableFault" xmlns:q41="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedDetail_TMSUnknownServiceKeyFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q42:TMSUnknownServiceKeyFault" xmlns:q42="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedDetail_DataServicesUnavailableFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q43:DataServicesUnavailableFault" xmlns:q43="http://schemas.ipcommerce.com/CWS/v2.0/DataServices"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedDetail_ExpiredTokenFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q44:ExpiredTokenFault" xmlns:q44="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedDetail_InvalidTokenFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q45:InvalidTokenFault" xmlns:q45="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedDetail_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q46:AuthenticationFault" xmlns:q46="http://schemas.ipcommerce.com/Identity/1.0/"/>
+  </wsdl:message>
+  <wsdl:message name="ITMSOperations_QueryRejectedDetail_TMSTransactionFailedFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="q47:TMSTransactionFailedFault" xmlns:q47="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/Faults"/>
+  </wsdl:message>
+  <wsdl:portType name="ITMSOperations">
+    <wsdl:documentation>&lt;summary&gt;&#xD;
+            Defines the service contract for TMS service endpoints.&#xD;
+            &lt;/summary&gt;</wsdl:documentation>
+    <wsdl:operation name="Ping">
+      <wsdl:input wsaw:Action="http://schemas.ipcommerce.com/Ipc.General.WCF.Contracts.Common/IExternallyFacingStandardOperations/Ping" message="tns:ITMSOperations_Ping_InputMessage"/>
+      <wsdl:output wsaw:Action="http://schemas.ipcommerce.com/Ipc.General.WCF.Contracts.Common/IExternallyFacingStandardOperations/PingResponse" message="tns:ITMSOperations_Ping_OutputMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="QueryBatch">
+      <wsdl:documentation>&lt;summary&gt;&#xD;
+            Queries the batch summary and returns Batch Status, DateTime, and a list of transactionIds in the batch.&#xD;
+            &lt;/summary&gt;&#xD;
+            &lt;param name="sessionToken"&gt;The short-lived token used to authenticate to CWS.&lt;/param&gt;&#xD;
+            &lt;param name="queryBatchParameters"&gt;The batch query details.&lt;/param&gt;&#xD;
+            &lt;param name="pagingParameters"&gt;Defines the parameters for the service to use for paging large datasets.&lt;/param&gt;&#xD;
+            &lt;returns&gt;Collection of batch details.&lt;/returns&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryBatch" message="tns:ITMSOperations_QueryBatch_InputMessage"/>
+      <wsdl:output wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryBatchResponse" message="tns:ITMSOperations_QueryBatch_OutputMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryBatchDataServicesUnavailableFaultFault" name="DataServicesUnavailableFaultFault" message="tns:ITMSOperations_QueryBatch_DataServicesUnavailableFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryBatchTMSUnknownServiceKeyFaultFault" name="TMSUnknownServiceKeyFaultFault" message="tns:ITMSOperations_QueryBatch_TMSUnknownServiceKeyFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryBatchExpiredTokenFaultFault" name="ExpiredTokenFaultFault" message="tns:ITMSOperations_QueryBatch_ExpiredTokenFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryBatchInvalidTokenFaultFault" name="InvalidTokenFaultFault" message="tns:ITMSOperations_QueryBatch_InvalidTokenFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryBatchAuthenticationFaultFault" name="AuthenticationFaultFault" message="tns:ITMSOperations_QueryBatch_AuthenticationFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryBatchTMSTransactionFailedFaultFault" name="TMSTransactionFailedFaultFault" message="tns:ITMSOperations_QueryBatch_TMSTransactionFailedFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryBatchTMSOperationNotSupportedFaultFault" name="TMSOperationNotSupportedFaultFault" message="tns:ITMSOperations_QueryBatch_TMSOperationNotSupportedFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryBatchTMSUnavailableFaultFault" name="TMSUnavailableFaultFault" message="tns:ITMSOperations_QueryBatch_TMSUnavailableFaultFault_FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="QueryTransactionFamilies">
+      <wsdl:documentation>&lt;summary&gt;&#xD;
+            Returns family summary information and a list of transactionIds that can be used to query for full transaction details.&#xD;
+            &lt;/summary&gt;&#xD;
+            &lt;param name="sessionToken"&gt;The short-lived token used to authenticate to CWS.&lt;/param&gt;&#xD;
+            &lt;param name="queryTransactionsParameters"&gt;Query parameters.&lt;/param&gt;&#xD;
+            &lt;param name="pagingParameters"&gt;Defines the parameters for the service to use for paging large datasets.&lt;/param&gt;&#xD;
+            &lt;returns&gt;Collection of transaction families.&lt;/returns&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionFamilies" message="tns:ITMSOperations_QueryTransactionFamilies_InputMessage"/>
+      <wsdl:output wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionFamiliesResponse" message="tns:ITMSOperations_QueryTransactionFamilies_OutputMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionFamiliesAuthenticationFaultFault" name="AuthenticationFaultFault" message="tns:ITMSOperations_QueryTransactionFamilies_AuthenticationFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionFamiliesInvalidTokenFaultFault" name="InvalidTokenFaultFault" message="tns:ITMSOperations_QueryTransactionFamilies_InvalidTokenFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionFamiliesTMSTransactionFailedFaultFault" name="TMSTransactionFailedFaultFault" message="tns:ITMSOperations_QueryTransactionFamilies_TMSTransactionFailedFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionFamiliesTMSUnavailableFaultFault" name="TMSUnavailableFaultFault" message="tns:ITMSOperations_QueryTransactionFamilies_TMSUnavailableFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionFamiliesDataServicesUnavailableFaultFault" name="DataServicesUnavailableFaultFault" message="tns:ITMSOperations_QueryTransactionFamilies_DataServicesUnavailableFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionFamiliesTMSUnknownServiceKeyFaultFault" name="TMSUnknownServiceKeyFaultFault" message="tns:ITMSOperations_QueryTransactionFamilies_TMSUnknownServiceKeyFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionFamiliesExpiredTokenFaultFault" name="ExpiredTokenFaultFault" message="tns:ITMSOperations_QueryTransactionFamilies_ExpiredTokenFaultFault_FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="QueryTransactionsDetail">
+      <wsdl:documentation>&lt;summary&gt;&#xD;
+            Queries the specified transactions and returns both summary details and full transaction details as a serialized object.&#xD;
+            &lt;/summary&gt;&#xD;
+            &lt;param name="sessionToken"&gt;The short-lived token used to authenticate to CWS.&lt;/param&gt;&#xD;
+            &lt;param name="queryTransactionsParameters"&gt;Query parameters.&lt;/param&gt;&#xD;
+            &lt;param name="transactionDetailFormat"&gt;Indicates the format for the complete serialized transactions: CWSTransaction or SerializedCWS.&lt;/param&gt;&#xD;
+            &lt;param name="includeRelated"&gt;Indicates whether transactions related to the resulting transaction should also be included.&lt;/param&gt;&#xD;
+            &lt;param name="pagingParameters"&gt;Defines the parameters for the service to use for paging large datasets.&lt;/param&gt;&#xD;
+            &lt;returns&gt;Collection of transaction details.&lt;/returns&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsDetail" message="tns:ITMSOperations_QueryTransactionsDetail_InputMessage"/>
+      <wsdl:output wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsDetailResponse" message="tns:ITMSOperations_QueryTransactionsDetail_OutputMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsDetailDataServicesUnavailableFaultFault" name="DataServicesUnavailableFaultFault" message="tns:ITMSOperations_QueryTransactionsDetail_DataServicesUnavailableFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsDetailInvalidTokenFaultFault" name="InvalidTokenFaultFault" message="tns:ITMSOperations_QueryTransactionsDetail_InvalidTokenFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsDetailAuthenticationFaultFault" name="AuthenticationFaultFault" message="tns:ITMSOperations_QueryTransactionsDetail_AuthenticationFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsDetailTMSTransactionFailedFaultFault" name="TMSTransactionFailedFaultFault" message="tns:ITMSOperations_QueryTransactionsDetail_TMSTransactionFailedFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsDetailTMSUnavailableFaultFault" name="TMSUnavailableFaultFault" message="tns:ITMSOperations_QueryTransactionsDetail_TMSUnavailableFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsDetailTMSUnknownServiceKeyFaultFault" name="TMSUnknownServiceKeyFaultFault" message="tns:ITMSOperations_QueryTransactionsDetail_TMSUnknownServiceKeyFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsDetailExpiredTokenFaultFault" name="ExpiredTokenFaultFault" message="tns:ITMSOperations_QueryTransactionsDetail_ExpiredTokenFaultFault_FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="QueryTransactionsSummary">
+      <wsdl:documentation>&lt;summary&gt;&#xD;
+            Queries the specified transactions and returns summary details related to one or more transactions matching specific search criteria.&#xD;
+            &lt;/summary&gt;&#xD;
+            &lt;param name="sessionToken"&gt;The short-lived token used to authenticate to CWS.&lt;/param&gt;&#xD;
+            &lt;param name="queryTransactionsParameters"&gt;Query parameters.&lt;/param&gt;&#xD;
+            &lt;param name="includeRelated"&gt;Indicates whether transactions related to the resulting transaction should also be included.&lt;/param&gt;&#xD;
+            &lt;param name="pagingParameters"&gt;Defines the parameters for the service to use for paging large datasets.&lt;/param&gt;&#xD;
+            &lt;returns&gt;Collection of transaction summaries.&lt;/returns&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsSummary" message="tns:ITMSOperations_QueryTransactionsSummary_InputMessage"/>
+      <wsdl:output wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsSummaryResponse" message="tns:ITMSOperations_QueryTransactionsSummary_OutputMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsSummaryTMSTransactionFailedFaultFault" name="TMSTransactionFailedFaultFault" message="tns:ITMSOperations_QueryTransactionsSummary_TMSTransactionFailedFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsSummaryTMSUnknownServiceKeyFaultFault" name="TMSUnknownServiceKeyFaultFault" message="tns:ITMSOperations_QueryTransactionsSummary_TMSUnknownServiceKeyFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsSummaryExpiredTokenFaultFault" name="ExpiredTokenFaultFault" message="tns:ITMSOperations_QueryTransactionsSummary_ExpiredTokenFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsSummaryInvalidTokenFaultFault" name="InvalidTokenFaultFault" message="tns:ITMSOperations_QueryTransactionsSummary_InvalidTokenFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsSummaryAuthenticationFaultFault" name="AuthenticationFaultFault" message="tns:ITMSOperations_QueryTransactionsSummary_AuthenticationFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsSummaryDataServicesUnavailableFaultFault" name="DataServicesUnavailableFaultFault" message="tns:ITMSOperations_QueryTransactionsSummary_DataServicesUnavailableFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryTransactionsSummaryTMSUnavailableFaultFault" name="TMSUnavailableFaultFault" message="tns:ITMSOperations_QueryTransactionsSummary_TMSUnavailableFaultFault_FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="QueryRejectedSummary">
+      <wsdl:documentation>&lt;summary&gt;&#xD;
+            Used to collect transaction summary information from the service provider (post-settlement), in the event that a captured transaction was rejected during settlement by the service provider.&#xD;
+            &lt;/summary&gt;&#xD;
+            &lt;param name="sessionToken"&gt;The short-lived token used to authenticate to CWS.&lt;/param&gt;&#xD;
+            &lt;param name="queryRejectedParameters"&gt;Query parameters.&lt;/param&gt;&#xD;
+            &lt;param name="pagingParameters"&gt;Defines the parameters for the service to use for paging large datasets.&lt;/param&gt;&#xD;
+            &lt;returns&gt;Collection of batch details.&lt;/returns&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedSummary" message="tns:ITMSOperations_QueryRejectedSummary_InputMessage"/>
+      <wsdl:output wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedSummaryResponse" message="tns:ITMSOperations_QueryRejectedSummary_OutputMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedSummaryDataServicesUnavailableFaultFault" name="DataServicesUnavailableFaultFault" message="tns:ITMSOperations_QueryRejectedSummary_DataServicesUnavailableFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedSummaryTMSUnknownServiceKeyFaultFault" name="TMSUnknownServiceKeyFaultFault" message="tns:ITMSOperations_QueryRejectedSummary_TMSUnknownServiceKeyFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedSummaryExpiredTokenFaultFault" name="ExpiredTokenFaultFault" message="tns:ITMSOperations_QueryRejectedSummary_ExpiredTokenFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedSummaryInvalidTokenFaultFault" name="InvalidTokenFaultFault" message="tns:ITMSOperations_QueryRejectedSummary_InvalidTokenFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedSummaryAuthenticationFaultFault" name="AuthenticationFaultFault" message="tns:ITMSOperations_QueryRejectedSummary_AuthenticationFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedSummaryTMSTransactionFailedFaultFault" name="TMSTransactionFailedFaultFault" message="tns:ITMSOperations_QueryRejectedSummary_TMSTransactionFailedFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedSummaryTMSOperationNotSupportedFaultFault" name="TMSOperationNotSupportedFaultFault" message="tns:ITMSOperations_QueryRejectedSummary_TMSOperationNotSupportedFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedSummaryTMSUnavailableFaultFault" name="TMSUnavailableFaultFault" message="tns:ITMSOperations_QueryRejectedSummary_TMSUnavailableFaultFault_FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="QueryRejectedDetail">
+      <wsdl:documentation>&lt;summary&gt;&#xD;
+            Used to collect transaction detail information from the service provider (post-settlement), in the event that a captured transaction was rejected during settlement by the service provider.&#xD;
+            &lt;/summary&gt;&#xD;
+            &lt;param name="sessionToken"&gt;The short-lived token used to authenticate to CWS.&lt;/param&gt;&#xD;
+            &lt;param name="queryRejectedParameters"&gt;Query parameters.&lt;/param&gt;&#xD;
+            &lt;param name="pagingParameters"&gt;Defines the parameters for the service to use for paging large datasets.&lt;/param&gt;&#xD;
+            &lt;returns&gt;Collection of batch details.&lt;/returns&gt;</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedDetail" message="tns:ITMSOperations_QueryRejectedDetail_InputMessage"/>
+      <wsdl:output wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedDetailResponse" message="tns:ITMSOperations_QueryRejectedDetail_OutputMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedDetailTMSOperationNotSupportedFaultFault" name="TMSOperationNotSupportedFaultFault" message="tns:ITMSOperations_QueryRejectedDetail_TMSOperationNotSupportedFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedDetailTMSUnavailableFaultFault" name="TMSUnavailableFaultFault" message="tns:ITMSOperations_QueryRejectedDetail_TMSUnavailableFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedDetailTMSUnknownServiceKeyFaultFault" name="TMSUnknownServiceKeyFaultFault" message="tns:ITMSOperations_QueryRejectedDetail_TMSUnknownServiceKeyFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedDetailDataServicesUnavailableFaultFault" name="DataServicesUnavailableFaultFault" message="tns:ITMSOperations_QueryRejectedDetail_DataServicesUnavailableFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedDetailExpiredTokenFaultFault" name="ExpiredTokenFaultFault" message="tns:ITMSOperations_QueryRejectedDetail_ExpiredTokenFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedDetailInvalidTokenFaultFault" name="InvalidTokenFaultFault" message="tns:ITMSOperations_QueryRejectedDetail_InvalidTokenFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedDetailAuthenticationFaultFault" name="AuthenticationFaultFault" message="tns:ITMSOperations_QueryRejectedDetail_AuthenticationFaultFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="http://schemas.ipcommerce.com/CWS/v2.0/DataServices/TMS/ITMSOperations/QueryRejectedDetailTMSTransactionFailedFaultFault" name="TMSTransactionFailedFaultFault" message="tns:ITMSOperations_QueryRejectedDetail_TMSTransactionFailedFaultFault_FaultMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

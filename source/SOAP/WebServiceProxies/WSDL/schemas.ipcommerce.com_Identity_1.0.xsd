@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.ipcommerce.com/Identity/1.0/" targetNamespace="http://schemas.ipcommerce.com/Identity/1.0/" elementFormDefault="qualified">
+  <xs:complexType name="STSUnavailableFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="STSUnavailableFault" type="tns:STSUnavailableFault" nillable="true"/>
+  <xs:complexType name="BaseFault">
+    <xs:sequence>
+      <xs:element name="ErrorID" type="xs:int" minOccurs="0"/>
+      <xs:element name="HelpURL" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="Operation" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="ProblemType" type="xs:string" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BaseFault" type="tns:BaseFault" nillable="true"/>
+  <xs:complexType name="ExpiredTokenFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ExpiredTokenFault" type="tns:ExpiredTokenFault" nillable="true"/>
+  <xs:complexType name="InvalidTokenFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="InvalidTokenFault" type="tns:InvalidTokenFault" nillable="true"/>
+  <xs:complexType name="AuthenticationFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AuthenticationFault" type="tns:AuthenticationFault" nillable="true"/>
+  <xs:complexType name="LockedByAdminFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="LockedByAdminFault" type="tns:LockedByAdminFault" nillable="true"/>
+  <xs:complexType name="PasswordExpiredFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PasswordExpiredFault" type="tns:PasswordExpiredFault" nillable="true"/>
+  <xs:complexType name="BadAttemptThresholdExceededFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BadAttemptThresholdExceededFault" type="tns:BadAttemptThresholdExceededFault" nillable="true"/>
+  <xs:complexType name="OneTimePasswordFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="OneTimePasswordFault" type="tns:OneTimePasswordFault" nillable="true"/>
+  <xs:complexType name="SendEmailFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SendEmailFault" type="tns:SendEmailFault" nillable="true"/>
+  <xs:complexType name="GeneratePasswordFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GeneratePasswordFault" type="tns:GeneratePasswordFault" nillable="true"/>
+  <xs:complexType name="PasswordInvalidFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PasswordInvalidFault" type="tns:PasswordInvalidFault" nillable="true"/>
+  <xs:complexType name="UserNotFoundFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UserNotFoundFault" type="tns:UserNotFoundFault" nillable="true"/>
+  <xs:complexType name="InvalidEmailFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="InvalidEmailFault" type="tns:InvalidEmailFault" nillable="true"/>
+  <xs:complexType name="ArrayOfClaimMetaData">
+    <xs:sequence>
+      <xs:element name="ClaimMetaData" type="tns:ClaimMetaData" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfClaimMetaData" type="tns:ArrayOfClaimMetaData" nillable="true"/>
+  <xs:complexType name="ClaimMetaData">
+    <xs:sequence>
+      <xs:element name="ClaimDescription" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="ClaimGuid" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="ClaimNs" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="ClaimType" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="ClaimValue" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="Confidential" type="xs:boolean" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClaimMetaData" type="tns:ClaimMetaData" nillable="true"/>
+  <xs:complexType name="ClaimNotFoundFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ClaimNotFoundFault" type="tns:ClaimNotFoundFault" nillable="true"/>
+  <xs:complexType name="AuthorizationFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AuthorizationFault" type="tns:AuthorizationFault" nillable="true"/>
+  <xs:complexType name="RelyingPartyNotAssociatedToSecurityDomainFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RelyingPartyNotAssociatedToSecurityDomainFault" type="tns:RelyingPartyNotAssociatedToSecurityDomainFault" nillable="true"/>
+  <xs:complexType name="SystemFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SystemFault" type="tns:SystemFault" nillable="true"/>
+  <xs:complexType name="NonRenewableTokenFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="NonRenewableTokenFault" type="tns:NonRenewableTokenFault" nillable="true"/>
+  <xs:complexType name="ClaimMappingsNotFoundFault" mixed="false">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseFault">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ClaimMappingsNotFoundFault" type="tns:ClaimMappingsNotFoundFault" nillable="true"/>
+</xs:schema>

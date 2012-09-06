@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.ipcommerce.com/CWS/v2.0/ServiceInformation/Faults" targetNamespace="http://schemas.ipcommerce.com/CWS/v2.0/ServiceInformation/Faults" elementFormDefault="qualified">
+	<xs:complexType name="CWSFault" mixed="false">
+		<xs:complexContent>
+			<xs:extension base="tns:CWSBaseFault">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CWSFault" type="tns:CWSFault" nillable="true"/>
+	<xs:complexType name="CWSBaseFault">
+		<xs:sequence>
+			<xs:element name="ErrorID" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo/>
+					<xs:documentation>&lt;summary&gt;
+            The error code of the fault.
+            &lt;/summary&gt;</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HelpURL" type="xs:string" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo/>
+					<xs:documentation>&lt;summary&gt;
+            The web URL that will display more information about the fault.
+            &lt;/summary&gt;</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Operation" type="xs:string" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo/>
+					<xs:documentation>&lt;summary&gt;
+            The CWS operation name that originated the fault.
+            &lt;/summary&gt;</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProblemType" type="xs:string" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo/>
+					<xs:documentation>&lt;summary&gt;
+            Lists the specific error message for the associated fault.
+            &lt;/summary&gt;</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CWSBaseFault" type="tns:CWSBaseFault" nillable="true"/>
+	<xs:complexType name="CWSServiceInformationUnavailableFault" mixed="false">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>&lt;summary&gt;
+            Indicates that the Service Information Service is temporary unavailable. The client application should retry the operation.
+            &lt;/summary&gt;</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:CWSBaseFault">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CWSServiceInformationUnavailableFault" type="tns:CWSServiceInformationUnavailableFault" nillable="true"/>
+	<xs:complexType name="CWSValidationResultFault" mixed="false">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>&lt;summary&gt;
+            Contains a collection of one or more PTLS XML error messages in CWSValidationErrorFault. The application should respond to these validation errors and correct the data being sent in.
+            &lt;/summary&gt;</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tns:CWSBaseFault">
+				<xs:sequence>
+					<xs:element name="Errors" type="tns:ArrayOfCWSValidationErrorFault" nillable="true" minOccurs="0">
+						<xs:annotation>
+							<xs:appinfo/>
+							<xs:documentation>&lt;summary&gt;
+            List of specific validation errors from CWSValidationErrorFault.
+            &lt;/summary&gt;</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CWSValidationResultFault" type="tns:CWSValidationResultFault" nillable="true"/>
+	<xs:complexType name="ArrayOfCWSValidationErrorFault">
+		<xs:sequence>
+			<xs:element name="CWSValidationErrorFault" type="tns:CWSValidationErrorFault" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ArrayOfCWSValidationErrorFault" type="tns:ArrayOfCWSValidationErrorFault" nillable="true"/>
+	<xs:complexType name="CWSValidationErrorFault">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>&lt;summary&gt;
+            Contains the details of the CWSValidationResultFault.
+            &lt;/summary&gt;</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ErrorType" type="tns:CWSValidationErrorFault.EErrorType" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo/>
+					<xs:documentation>&lt;summary&gt;
+            Indicates the type of error.
+            &lt;/summary&gt;</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RuleKey" type="xs:string" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo/>
+					<xs:documentation>&lt;summary&gt;
+            Indicates the data rule that failed.
+            &lt;/summary&gt;</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RuleLocationKey" type="xs:string" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo/>
+					<xs:documentation>&lt;summary&gt;
+            Indicates where the data rule failed. This can be null.
+            &lt;/summary&gt;</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RuleMessage" type="xs:string" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo/>
+					<xs:documentation>&lt;summary&gt;
+            The verbose message that describes the failure. Do not put stack traces here; use the logger.
+            &lt;/summary&gt;</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TransactionId" type="xs:string" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo/>
+					<xs:documentation>&lt;summary&gt;
+            Indicates the transaction Id where the rule failed.
+            &lt;/summary&gt;</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CWSValidationErrorFault" type="tns:CWSValidationErrorFault" nillable="true"/>
+	<xs:simpleType name="CWSValidationErrorFault.EErrorType">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>&lt;summary&gt;
+            The type of possible errors.
+            &lt;/summary&gt;</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Validation">
+				<xs:annotation>
+					<xs:documentation>&lt;summary&gt;
+            Rule failed validation.
+            &lt;/summary&gt;</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Processing">
+				<xs:annotation>
+					<xs:documentation>&lt;summary&gt;
+            Processing error.  An error that
+            has nothing to do with the message nor
+            with the validator engine.
+            &lt;/summary&gt;</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="System">
+				<xs:annotation>
+					<xs:documentation>&lt;summary&gt;
+            Systems error.  An error that
+            has nothing to do with the message
+            and indicates that something failed in
+            the validator engine.
+            &lt;/summary&gt;</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="CWSValidationErrorFault.EErrorType" type="tns:CWSValidationErrorFault.EErrorType" nillable="true"/>
+</xs:schema>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.ipcommerce.com/Ipc.General.WCF.Contracts.Common" xmlns:q1="http://schemas.ipcommerce.com/Ipc.General.WCF.Contracts.Common/External" targetNamespace="http://schemas.ipcommerce.com/Ipc.General.WCF.Contracts.Common" elementFormDefault="qualified">
+  <xs:import namespace="http://schemas.ipcommerce.com/Ipc.General.WCF.Contracts.Common/External" schemaLocation="schemas.ipcommerce.com_Ipc.General.WCF.Contracts.Common_External.xsd"/>
+  <xs:element name="Ping">
+    <xs:complexType>
+      <xs:sequence/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PingResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="PingResult" type="q1:PingResponse" nillable="true" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
