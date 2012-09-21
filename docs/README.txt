@@ -30,19 +30,23 @@ NOTE: You will need to obtain an IdentityToken from your Solutions Consultant in
 
 This project was created with PHP 5.3 and is only compatible with 5.3 and up PHP versions.  The project uses the PHP built in SOAP Client.
 
-Step 1:  Run the ApplicationAndMerchantSetup.php script first.  This script will do all of the necessary steps (1-4) to 
+Step 1:  In the app.config.php file enter the IdentityToken given to you. Change the MsgFormat to either SOAP, HTTP, or JSON depending
+	 on the how you chose to send the messages. This will determine which client is created. 
+
+Step 2:  Run the ApplicationAndMerchantSetup.php script first.  This script will do all of the necessary steps (1-4) to 
 	 set your application up.  This includes creating sample applicationData, and a MerchantProfile.  This will output
 	 your ApplicationProfileId, ServiceId, MerchantProfileId, and encrypted IdentityToken into the CWS_Config_Values.xml file located in
 	 the ConfigFiles directory.
 
-Step 2:  Run the TransactionProcessing.php script.  This script will walk you through creating different transaction types and 
+Step 3:  Run the TransactionProcessing.php script.  This script will walk you through creating different transaction types and 
 	 sending them. The transaction types that are created and sent are all based off of the ServiceInformation Operations object
 	 which details what Operations are supported.  The responses for these transactions are outputted to the window.
 
 Web Service Proxies folder:
 
-- CWSClient.php/HTTPClient.php - is the file that does all of the message processing and is your main client file that ties the WebServiceProxies together.
+- CWSClient.php/HTTPClient.php/JSONClient.php - is the file that does all of the message processing and is your main client file that ties the WebServiceProxies together.
 - FaultHandler.php - is the basis of a fault handling class and will capture the SOAP faults that are returned your application.
+- RestFaultHandler.php - is the basis of a fault handling class and will capture the REST faults that are returned your application.
 - CWSTransactionProcessing.php - is the Transaction proxy class generated from the Txn WSDL; includes a classmap.
 - CWSServiceInformation.php - is the ServiceInformation class generated from the SvcInfo wsdl; includes a classmap
 - CWSTransactionManagement.php - is the Transaction Management proxy class generated from the TMS WSDL; includes a classmap.
