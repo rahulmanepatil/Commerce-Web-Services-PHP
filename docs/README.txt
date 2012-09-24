@@ -31,7 +31,8 @@ NOTE: You will need to obtain an IdentityToken from your Solutions Consultant in
 This project was created with PHP 5.3 and is only compatible with 5.3 and up PHP versions.  The project uses the PHP built in SOAP Client.
 
 Step 1:  In the app.config.php file enter the IdentityToken given to you. Change the MsgFormat to either SOAP, HTTP, or JSON depending
-	 on the how you chose to send the messages. This will determine which client is created. 
+	 on the how you chose to send the messages. This will determine which client is created. Also edit the fields depending on your
+	 industry type. The defaults in the app.config.php are set to Ecommerce, see the below for what the defaults should be depending on industry.
 
 Step 2:  Run the ApplicationAndMerchantSetup.php script first.  This script will do all of the necessary steps (1-4) to 
 	 set your application up.  This includes creating sample applicationData, and a MerchantProfile.  This will output
@@ -52,3 +53,39 @@ Web Service Proxies folder:
 - CWSTransactionManagement.php - is the Transaction Management proxy class generated from the TMS WSDL; includes a classmap.
 - HelperMethods.php - is a class that helps output data from all responses.  Note these functions can be modified to parse data to insert
 											into your database.
+											
+Industry: Ecommerce
+	TxnData_IndustryType = 'Ecommerce'
+	TxnData_CustomerPresent = 'Ecommerce'
+	ApplicationAttended = false;
+	ApplicationLocation = 'OffPremises'
+	PINCapability = 'PINNotSupported'
+	ReadCapability = 'KeyOnly'
+	EntryMode = 'Keyed'
+	
+Industry: MOTO
+	TxnData_IndustryType = 'MOTO'
+	TxnData_CustomerPresent = 'MOTO'
+	ApplicationAttended = false;
+	ApplicationLocation = 'OffPremises'
+	PINCapability = 'PINNotSupported'
+	ReadCapability = 'KeyOnly'
+	EntryMode = 'Keyed'
+	
+Industry: Retail
+	TxnData_IndustryType = 'Retail'
+	TxnData_CustomerPresent = 'Present'
+	ApplicationAttended = true;
+	ApplicationLocation = 'OnPremises'
+	PINCapability = 'PINNotSupported'
+	ReadCapability = 'HasMSR'
+	EntryMode = 'TrackDataFromMSR'
+											
+Industry: Restaurant
+	TxnData_IndustryType = 'Restaurant'
+	TxnData_CustomerPresent = 'Present'
+	ApplicationAttended = true;
+	ApplicationLocation = 'OffPremises'
+	PINCapability = 'PINNotSupported'
+	ReadCapability = 'HasMSR'
+	EntryMode = 'TrackDataFromMSR'											
