@@ -3,6 +3,7 @@
 class Settings
 {
 	const Timezone = 'America/Denver'; // To get a list of supported timezones see http://php.net/manual/en/timezones.php
+	const MsgFormat = 'JSON'; // 'SOAP', 'HTTP', 'JSON', 'XML' - Selects the message type SOAP, HTTP, REST_JSON, or REST_XML - REST_XML has not been implemented yet.
 	/*
 	 * Identity Token : Identity tokens are signed authentication tokens provided to merchants or other transaction originators to prevent the unauthorized use
 	 * of an application. Identity tokens are set to expire after 3 years, and therefore will require renewal. Identity tokens should be managed and protected in a
@@ -70,7 +71,5 @@ class Settings
 	const BaseDataServicesEndpointSecondary = 'https://cws-01.cert.ipcommerce.com/2.0.18/DataServices/TMS';
 	const URL_BaseURL = 'https://cws-01.cert.ipcommerce.com/2.0.18/';
 	const URL_RestURL = 'https://cws-01.cert.ipcommerce.com/REST/2.0.18/';
-
-	const MsgFormat = 'JSON'; // 'SOAP', 'HTTP', 'JSON', 'XML' - Selects the message type SOAP, HTTP, REST_JSON, or REST_XML - REST_XML has not been implemented yet.
 }
 ?>
