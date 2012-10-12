@@ -287,6 +287,31 @@ class CWSClient {
 			exit ();
 		}
 	}
+	
+	/*
+	 *
+	 * Retrieve a specific Merchant Profile for a given Service Id and Merchant ProfileId
+	 *
+	 */
+	public function getMerchantProfile($svcId, $merchProfId, $tndrType) {
+		if (! $this->signOn ())
+		return false;
+		try {
+			$mp = new GetMerchantProfile ();
+			$mp->sessionToken = $this->session_token;
+			$mp->serviceId = $svcId;
+			$mp->merchantProfileId = $merchProfId;
+			$mp->tenderType = $tndrType;			
+			$response = $this->serviceInfo->GetMerchantProfile ( $mp );
+			return $response->GetMerchantProfilesResult->MerchantProfile;
+		} catch ( SoapFault $e ) {
+			echo 'SERVER ERROR: Error Retrieving Merchant Profiles.<br/>';
+			$xmlFault = $this->serviceInfo->__getLastResponse ();
+			$errors = handleSvcInfoFault ( $e, $xmlFault );
+			echo $errors;
+			exit ();
+		}
+	}
 	/*
 	 *
 	 * Return only the Profile Id

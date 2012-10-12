@@ -63,7 +63,7 @@ $app_data->DeviceSerialNumber = Settings::DeviceSerialNumber;
  *
  */
 if ($_applicationProfileId == null){
-	if($_msgFormat == 'HTTP')
+	if($_msgFormat == 'HTTP') //TODO this needs to be handled in the HTTPClient
 		$app_data = setApplicationData($app_data);
 		
 	$response = $client->saveApplicationData ( $app_data );

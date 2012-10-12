@@ -323,6 +323,7 @@ class HTTPClient {
 			exit ();
 		}
 	}
+	// TODO: add GetMerchantProfile
 	/*
 	 *
 	 * Return only the Profile Id
