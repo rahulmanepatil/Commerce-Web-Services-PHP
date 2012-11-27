@@ -222,14 +222,31 @@ class JSONClient {
 			// for each service. It will only grab the first of each, a foreach would
 			// be needed to grab all. 
 			$si = new stdClass();
-			if(count($siResponse[2]->BankcardServices))				
+			$si->BankcardServices = new stdClass(); 
+			
+			if(count($siResponse[2]->BankcardServices))
+			{
+				$si->BankcardServices->BankcardService = new BankcardService;
 				$si->BankcardServices->BankcardService = $siResponse[2]->BankcardServices[0];  
-			if(count($siResponse[2]->ElectronicCheckingServices))				
+			}	
+			if(count($siResponse[2]->ElectronicCheckingServices))	
+			{
+				$si->ElectronicCheckingServices->ElectronicCheckingServices = new ElectronicCheckingServices;
 				$si->ElectronicCheckingServices->ElectronicCheckingService = $siResponse[2]->ElectronicCheckingServices[0];
-			if(count($siResponse[2]->StoredValueServices))				
+			}			
+				
+			if(count($siResponse[2]->StoredValueServices))	
+			{
+				$si->StoredValueServices->StoredValueService = new StoredValueService;
 				$si->StoredValueServices->StoredValueService = $siResponse[2]->StoredValueServices[0];
-			if(count($siResponse[2]->Workflows))				
+			}			
+				
+			if(count($siResponse[2]->Workflows))	
+			{
+				$si->Workflows->Workflow = new Workflow;
 				$si->Workflows->Workflow = $siResponse[2]->Workflows[0]; 
+			}			
+				
 			return $si;
 		}				
 		return false; 
