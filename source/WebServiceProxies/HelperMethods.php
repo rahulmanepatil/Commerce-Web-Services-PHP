@@ -1057,8 +1057,9 @@ function arrayToObject($array) {
 		$bank_trans->TransactionData->AccountType = $trans_info->AccountType;
 		$bank_trans->TransactionData->Amount = sprintf("%0.2f", $trans_info->Amount);
 		$bank_trans->TransactionData->ApprovalCode = $trans_info->ApprovalCode;
-		if ($trans_info->CashBackAmount != '')
-		$bank_trans->TransactionData->CashBackAmount = $trans_info->CashBackAmount;
+		if ($trans_info->CashBackAmount != '0.00'){
+			$bank_trans->TransactionData->CashBackAmount = sprintf("%0.2f",  $trans_info->CashBackAmount);
+		}
 		$bank_trans->TransactionData->CurrencyCode = $trans_info->CurrencyCode;
 		$bank_trans->TransactionData->CustomerPresent = $trans_info->CustomerPresent;
 		$bank_trans->TransactionData->EmployeeId = $trans_info->EmployeeId;
@@ -1077,7 +1078,7 @@ function arrayToObject($array) {
 			$bank_trans->TransactionData->Amount = $trans_info->Amount + $trans_info->TipAmount;
 			$bank_trans->TransactionData->Amount = sprintf("%0.2f", $bank_trans->TransactionData->Amount);
 		}
-		if ($trans_info->CFeeAmount != '') {
+		if ($trans_info->CFeeAmount != '0.00') {
 			$bank_trans->TransactionData->FeeAmount = sprintf("%0.2f",  $trans_info->CFeeAmount);
 		}
 		if ($trans_info->Creds != null) {
