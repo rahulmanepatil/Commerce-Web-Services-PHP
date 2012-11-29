@@ -147,7 +147,8 @@ function  setBCPTxnData($_serviceInformation) {
 
 	if ($_serviceInformation->BankcardServices->BankcardService->Tenders->CredentialsRequired)
 	{
-		$credentials = '<UserId>100000007506657</UserId><Password>A1B2C3D4F6</Password>';
+		$credentials = '<c:string>&lt;UserId&gt;'.Settings::TxnData_UserId.'&lt;/UserId&gt;</c:string>'.
+					   '<c:string>&lt;Password&gt;'.Settings::TxnData_Password.'&lt;/Password&gt;</c:string>';
 		$transactionData->Creds = $credentials;
 	}
 

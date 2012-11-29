@@ -1397,11 +1397,13 @@ public function buildTransactionXML($credit_info, $trans_info) {
 
 				'<a:ReportingData i:nil="true"/>';
 	if ($trans_info->Creds != null) {
-		$trans = $trans.'<Addendum>'.
-							'<Any>'.
-								'<string>'.$trans_info->Creds.'</string>'.
-							'</Any>'.
-						'</Addendum>';	
+		$trans = $trans.'<a:Addendum>'.
+						   '<a:Unmanaged>'.
+							'<a:Any xmlns:c="http://schemas.microsoft.com/2003/10/Serialization/Arrays">'.
+								$trans_info->Creds.
+							'</a:Any>'.
+						   '</a:Unmanaged>'.
+						'</a:Addendum>';	
 	}
 	$trans = $trans.'<ApplicationConfigurationData i:nil="true" xmlns="http://schemas.ipcommerce.com/CWS/v2.0/Transactions/Bankcard"/>'.
 				'<TenderData xmlns="http://schemas.ipcommerce.com/CWS/v2.0/Transactions/Bankcard">';	

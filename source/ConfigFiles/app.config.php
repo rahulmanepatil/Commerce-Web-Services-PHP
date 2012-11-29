@@ -39,6 +39,8 @@ class Settings
 	const TxnData_ProcessMagensaTxn = false; // Magensa is an End to End encryptions solution offered through MagTek	
 	const TxnData_IndustryType = 'Ecommerce';		// Valid Values 'Ecommerce', 'MOTO', 'Retail', 'Restaurant' 
 	const TxnData_CustomerPresent = 'Ecommerce';		// [Ecommerce : Ecommerce] [MOTO : MOTO] [Retail/Restaurant : Present] 
+	const TxnData_UserId = 'UTest';				// Some services require a UserId and Password
+	const TxnData_Password = 'UPassword';		// Some services require a UserId and Password
 	// ** ALL THE FOLOWING WERE IN SINGLE QUOTES IN HTTP
 	const TxnData_SignatureCaptured = false;		// 'true', 'false' - For retail/restaurant should be configurable in their software and should be marked whether or not software actually gets the signature for each transaction 
 	const TxnData_IncludeAVS = true;		// 'true', 'false' 
