@@ -428,7 +428,7 @@ class JSONClient {
 			else{
 				$Transaction = buildTransaction ( $credit_info, $trans_info );
 				$TxnType = '"$type":"BankcardTransaction,http://schemas.ipcommerce.com/CWS/v2.0/Transactions/Bankcard",';
-				$TxnDataType = '"$type":"BankcardTransactionData,http://schemas.ipcommerce.com/CWS/v2.0/Transactions/Bankcard",';
+				$TxnDataType = ''; //$TxnDataType = '"$type":"BankcardTransactionData,http://schemas.ipcommerce.com/CWS/v2.0/Transactions/Bankcard",';  DB Removed 12.18.2012 as current production schemas will not accept
 			}
 		}
 		if ($this->svc instanceof ElectronicCheckingService){
@@ -535,7 +535,7 @@ class JSONClient {
 			else{
 				$Transaction = buildTransaction ( $credit_info, $trans_info );
 				$TxnType = '"$type":"BankcardTransaction,http://schemas.ipcommerce.com/CWS/v2.0/Transactions/Bankcard",';
-				$TxnDataType = '"$type":"BankcardTransactionData,http://schemas.ipcommerce.com/CWS/v2.0/Transactions/Bankcard",';
+				$TxnDataType = '';//$TxnDataType = '"$type":"BankcardTransactionData,http://schemas.ipcommerce.com/CWS/v2.0/Transactions/Bankcard",'; DB Removed 12.18.2012 as current production schemas will not accept
 			}
 		}
 		if ($this->svc instanceof ElectronicCheckingService){
