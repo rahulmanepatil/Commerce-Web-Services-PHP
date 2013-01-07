@@ -95,17 +95,17 @@ $_serviceInformation = $client->getServiceInformation();
 
 if (isset($_serviceInformation->BankcardServices->BankcardService)){
 	$_bankcardServices = $_serviceInformation->BankcardServices;
-	include_once dirname(__FILE__).'../TransactionProcessingScripts/BankcardTransactionProcessing.php';
+	require_once ABSPATH.'/TransactionProcessingScripts/BankcardTransactionProcessing.php';
 }
 
 if (isset($_serviceInformation->ElectronicCheckingServices->ElectronicCheckingService)){
 	$_electronicCheckingServices = $_serviceInformation->ElectronicCheckingServices;
-	include_once dirname(__FILE__).'../TransactionProcessingScripts/ElectronicCheckingTransactionProcessing.php';
+	require_once ABSPATH.'/TransactionProcessingScripts/ElectronicCheckingTransactionProcessing.php';
 }
 
 if (isset($_serviceInformation->StoredValueServices->StoredValueService)){
 	$_storedvalueServices = $_serviceInformation->StoredValueServices;
-	include_once dirname(__FILE__).'../TransactionProcessingScripts/StoredValueTransactionProcessing.php';
+	require_once ABSPATH.'/TransactionProcessingScripts/StoredValueTransactionProcessing.php';
 }
 
 echo '<br><b>     Transaction Processing script complete!</b><br />';
