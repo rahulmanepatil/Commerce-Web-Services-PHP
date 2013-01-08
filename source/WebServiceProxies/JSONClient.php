@@ -96,10 +96,10 @@ class transData {
 	$EmployeeId = '', //Used for Retail, Restaurant, MOTO
 	$EntryMode = '', // Keyed, TrackDataFromMSR
 	$GoodsType = '', // DigitalGoods - PhysicalGoods
-	$IndustryType = '', // Retail, Restaurant, Ecommerce, MOTO
+	//$IndustryType = '', // Retail, Restaurant, Ecommerce, MOTO
 	$AccountType = '', // SavingsAccount, CheckingAccount
 	$Amount = '0.00', // in a decimal format xx.xx
-	$CashBackAmount = '', // in a decimal format. used for PINDebit transactions
+	$CashBackAmount = '0.00', // in a decimal format. used for PINDebit transactions
 	$CurrencyCode = '', // TypeISOA3 Currency Codes USD CAD
 	$SignatureCaptured = false, // boolean true or false
 	$TipAmount = '0.00', // in a decimal format
@@ -116,10 +116,10 @@ class transDataPro {
 	$EmployeeId = '', //Used for Retail, Restaurant, MOTO
 	$EntryMode = '', // Keyed, TrackDataFromMSR
 	$GoodsType = '', // DigitalGoods - PhysicalGoods
-	$IndustryType = '', // Retail, Restaurant, Ecommerce, MOTO
+	//$IndustryType = '', // Retail, Restaurant, Ecommerce, MOTO
 	$AccountType = '', // SavingsAccount, CheckingAccount
 	$Amount = '0.00', // in a decimal format xx.xx
-	$CashBackAmount = '', // in a decimal format. used for PINDebit transactions
+	$CashBackAmount = '0.00', // in a decimal format. used for PINDebit transactions
 	$CurrencyCode = '', // TypeISOA3 Currency Codes USD CAD
 	$SignatureCaptured = false, // boolean true or false
 	$TipAmount = '0.00', // in a decimal format
@@ -451,11 +451,12 @@ class JSONClient {
 		$msgBody = str_replace('{"ApplicationProfileId"', '{"$type":"AuthorizeTransaction,http://schemas.ipcommerce.com/CWS/v2.0/Transactions/Rest","ApplicationProfileId"', $msgBody);
 		$msgBody = str_replace($txnString, $txnString.$TxnType, $msgBody);
 		$msgBody = str_replace($txnDataString, $txnDataString.$TxnDataType, $msgBody);
-		$msgBody = str_replace(' ', '', $msgBody); // Make sure no spaces remain in the body.		
+		//$msgBody = str_replace(' ', '', $msgBody); // Make sure no spaces remain in the body.		
 		$response = curl_json($msgBody, $url, $action, $this->session_token);
 		if(isset($response->body->ErrorId))
 		{
 			handleRestFault($response);
+			var_dump($msgBody);
 			return false;	
 		}
 		if(isset($response[2]))
@@ -705,7 +706,7 @@ class JSONClient {
 		$msgBody = str_replace('{'.$msgTypeString, '{'.$MsgType.$msgTypeString, $msgBody);
 		$msgBody = str_replace($txnTypeString, $txnTypeString.$TxnType, $msgBody);
 		$msgBody = str_replace($txnDataTypeString, $txnDataTypeString.$TxnDataType, $msgBody);			
-		$msgBody = str_replace(' ', '', $msgBody); // Make sure no spaces remain in the body.
+		//$msgBody = str_replace(' ', '', $msgBody); // Make sure no spaces remain in the body.
 		$response = curl_json($msgBody, $url, $action, $this->session_token);
 		if(isset($response->body->ErrorId))
 		{

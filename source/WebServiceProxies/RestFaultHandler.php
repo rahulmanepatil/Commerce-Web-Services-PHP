@@ -90,9 +90,13 @@ function handleRestFault($fault){
 		$errorString = $errorString.'    Reason: '.$fault->body->Reason.'<br/>';
 	}
 	if(isset($fault->body->ValidationErrors) && is_array($fault->body->ValidationErrors)){
-		$i = 1;
+		$i = 0;
 		foreach($fault->body->ValidationErrors as $ve){
-			$errorString = $errorString.'    ValidationError ('.$i.'): '.$ve.'<br/>';
+			$errorString = $errorString.'    ValidationError ('.$i.'): ';
+			$errorString = $errorString.'         RuleKey: '.$ve->RuleKey.'<br/>';
+			$errorString = $errorString.'         RuleLocationKey: '.$ve->RuleLocationKey.'<br/>';
+			$errorString = $errorString.'         RuleMessage: '.$ve->RuleMessage.'<br/>';
+			$errorString = $errorString.'         TransactionId: '.$ve->TransactionId.'<br/>';
 			$i++;	
 		}		
 	}

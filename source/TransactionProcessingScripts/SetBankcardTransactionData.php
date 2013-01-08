@@ -1,5 +1,5 @@
 <?php
-
+require_once ABSPATH.'/ConfigFiles/app.config.php';
 // Credit Card Info
 /* SEE CREDIT CARD CLASS IN CWSClient.php FOR MORE INFO */
 
@@ -66,13 +66,13 @@ function  setBCPTxnData($_serviceInformation) {
 	$transactionData->GoodsType = 'DigitalGoods'; // DigitalGoods - PhysicalGoods - Used only for Ecommerce	
 	//$transactionData->AccountType = ''; // SavingsAccount, CheckingAccount used only for PINDebit
 	$transactionData->Amount = '10.00'; // in a decimal format xx.xx
-	$transactionData->CashBackAmount = ''; // in a decimal format. used for PINDebit transactions
+	//$transactionData->CashBackAmount = '0.00'; // in a decimal format. used for PINDebit transactions
 	$transactionData->CurrencyCode = 'USD'; // TypeISOA3 Currency Codes USD CAD
 	$transactionData->SignatureCaptured = false; // boolean true or false
 	$transactionData->LaneId = "1";
 	if(isset($transactionData->IsPartialShipment))$transactionData->IsPartialShipment = false; // boolean true or false
 	if(isset($transactionData->IsQuasiCash))$transactionData->IsQuasiCash = false; // boolean true or false
-	//$transactionData->TipAmount = ''; // in a decimal format
+	//$transactionData->TipAmount = '0.00'; // in a decimal format
 
 	if (Settings::Pro_IncludeLevel2OrLevel3Data)
 	{
@@ -85,7 +85,7 @@ function  setBCPTxnData($_serviceInformation) {
 		$transactionData->EmployeeId = '12'; //Used for Retail, Restaurant, MOTO
 		$transactionData->EntryMode = Settings::TxnData_EntryMode; // Keyed, TrackDataFromMSR
 		$transactionData->GoodsType = 'DigitalGoods'; // DigitalGoods - PhysicalGoods - Used only for Ecommerce
-		$transactionData->IndustryType = Settings::IndustryType; 
+		//$transactionData->IndustryType = Settings::IndustryType; 
 		$transactionData->AccountType = 'NotSet'; // SavingsAccount, CheckingAccount used only for PINDebit
 		$transactionData->Amount = '10.00'; // in a decimal format xx.xx
 		$transactionData->CashBackAmount = '0.00'; // in a decimal format. used for PINDebit transactions
