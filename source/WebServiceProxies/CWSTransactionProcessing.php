@@ -968,6 +968,10 @@ class Unmanaged {
   public $Any; // ArrayOfstring
 }
 
+class Any {
+	public $string; // ArrayOfstring
+}
+
 class UseType {
 }
 
