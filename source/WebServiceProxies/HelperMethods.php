@@ -1199,6 +1199,7 @@ function arrayToObject($array) {
 			$bank_transpro->InterchangeData->BillPayment = $trans_info->InterchangeData->BillPayment;
 			$bank_transpro->InterchangeData->ExistingDebt = $trans_info->InterchangeData->ExistingDebt;
 			$bank_transpro->InterchangeData->CurrentInstallmentNumber = $trans_info->InterchangeData->CurrentInstallmentNumber;
+			$bank_transpro->InterchangeData->TotalNumberOfInstallments = $trans_info->InterchangeData->TotalNumberOfInstallments;
 			if ($trans_info->InterchangeData->BillPayment != 'NotSet')
 			$bank_transpro->TransactionData->CustomerPresent = 'BillPayment';
 		}
