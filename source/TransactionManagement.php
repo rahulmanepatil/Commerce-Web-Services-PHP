@@ -110,21 +110,22 @@ $queryTxnParameters = new QueryTransactionsParameters();
 $queryTxnParameters->Amounts = null; // ArrayOfdecimal
 $queryTxnParameters->ApprovalCodes = null; // ArrayOfstring
 $queryTxnParameters->BatchIds = null; // ArrayOfstring
-$queryTxnParameters->IncludeRelated = 'false'; //BooleanParameter
 $queryTxnParameters->CaptureDateRange = null; // DateRange
-$queryTxnParameters->CaptureStates = null; // ArrayOfCaptureState
+$captureStates[0] = 'ReadyForCapture';
+$captureStates[1] = 'Captured';
+$queryTxnParameters->CaptureStates = $captureStates; // ArrayOfCaptureState
 $queryTxnParameters->CardTypes = null; // ArrayOfTypeCardType
-$queryTxnParameters->IsAcknowledged = 'NotSet'; // BooleanParameter  true/false
-$queryTxnParameters->MerchantProfileIds = ''; // ArrayOfstring
+$queryTxnParameters->IsAcknowledged = 'false'; // BooleanParameter  true/false
+$queryTxnParameters->MerchantProfileIds = null; // ArrayOfstring
 $queryTxnParameters->QueryType = 'AND'; // QueryType  AND/OR
 $queryTxnParameters->ServiceIds = null; // ArrayOfstring
 $queryTxnParameters->ServiceKeys = null; // ArrayOfstring
-$queryTxnParameters->TransactionClassTypePairs = null; // ArrayOfTransactionClassTypePair
-$queryTxnParameters->TransactionDateRange = $txnDateRange; // DateRange
-$queryTxnParameters->TransactionIds = null; // ArrayOfstring
+$queryTxnParameters->TransactionClassTypePairs = null; // ArrayOfTransactionClassTypePair*/
+$queryTxnParameters->TransactionDateRange = null;//$txnDateRange; // DateRange
+//$queryTxnParameters->TransactionIds = null; // ArrayOfstring
 //$queryTxnParameters->TransactionIds[] = 'PUT_TXN_GUID1_HERE'; // ArrayOfstring
 //$queryTxnParameters->TransactionIds[] = 'PUT_OPTIONAL_2ND_TXN_GUID_HERE';
-$queryTxnParameters->TransactionStates = null; // ArrayOfTransactionState
+//$queryTxnParameters->TransactionStates = null; // ArrayOfTransactionState
 
 $response = $client->queryTransactionsSummary($queryTxnParameters, $includeRelated, $pagingParameters);
 
@@ -153,8 +154,8 @@ else {
 	printFamilyDetailInformation ( $response->FamilyDetail );
 }
 
-$transactionDetailFormat = 'CWSTransaction';
-
+$transactionDetailFormat = 'SerializedCWS';
+$queryTxnParameters->CaptureStates = null;
 $response = $client->queryTransactionsDetail($queryTxnParameters, $includeRelated, $transactionDetailFormat, $pagingParameters);
 
 if (is_array ( $response )) {

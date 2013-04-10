@@ -76,18 +76,24 @@ if (is_array($_merchantProfileId)){
 			printTransactionResults($response, 'Authorize', $merchProfileId);
 		}
 
-		if($_bcs->Operations->Authorize && Settings::TxnData_SupportTokenization)
+		if($_bcs->Operations->Authorize && Settings::TxnData_SupportTokenization && $response->PaymentAccountDataToken != '')
 		{
 			$tokenTransaction = new newTransaction();
 			$tokenTransaction->TxnData = $bcpTxn->TxnData;
 			// below demonstrates how to use a PaymentAccountDataToken instead of Card Data
 			$tokenizedTenderData = new creditCard();
 			$tokenizedTenderData->paymentAccountDataToken = $response->PaymentAccountDataToken;
+			$tokenizedTenderData->name = 'John Doe';
 			$tokenizedTenderData->address = '1000 1st Av';
+			$tokenizedTenderData->city = 'Denver';
+			$tokenizedTenderData->state = 'CO';
+			$tokenizedTenderData->country = 'USA';
 			$tokenizedTenderData->zip = '10101';
 			$tokenTransaction->TndrData = $tokenizedTenderData;
+			$bcpTxn->TxnData->EntryMode = 'Keyed';
 			$response = $client->authorize($tokenTransaction->TndrData, $tokenTransaction->TxnData, true);
 			printTransactionResults($response, 'Authorize using PaymentAccountDataToken', $merchProfileId);
+			$bcpTxn = setBCPTxnData($_serviceInformation);
 		}
 
 		/*

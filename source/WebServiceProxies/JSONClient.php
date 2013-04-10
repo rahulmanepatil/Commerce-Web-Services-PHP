@@ -40,7 +40,7 @@ class newTransaction {
 // Holds credit card information
 class creditCard {
 	public $paymentAccountDataToken = '',
-	$type,
+	$type = 'NotSet',
 	$name,
 	$number,
 	$expiration, // MMYY
@@ -53,7 +53,11 @@ class creditCard {
 	$country = 'USA',
 	$currency = 'USD',
 	$track1,
-	$track2;
+	$track2,
+	$IdentificationInformation,
+	$encryptionKeyId,
+	$securePaymentAccountData,
+	$swipeStatus;
 }
 
 class achCheck {
@@ -92,13 +96,15 @@ class achTransactionData{
 class transData {
 	public $InvoiceNumber = '',
 	$OrderNumber = '',
-	$CustomerPresent = '', // Present, Ecommerce, MOTO, NotPresent
+	$CustomerPresent = 'NotSet', // Present, Ecommerce, MOTO, NotPresent
 	$EmployeeId = '', //Used for Retail, Restaurant, MOTO
-	$EntryMode = '', // Keyed, TrackDataFromMSR
-	$GoodsType = '', // DigitalGoods - PhysicalGoods
+	$EntryMode = 'NotSet', // Keyed, TrackDataFromMSR
+	$GoodsType = 'NotSet', // DigitalGoods - PhysicalGoods
 	//$IndustryType = '', // Retail, Restaurant, Ecommerce, MOTO
-	$AccountType = '', // SavingsAccount, CheckingAccount
+	$AccountType = 'NotSet', // SavingsAccount, CheckingAccount
 	$Amount = '0.00', // in a decimal format xx.xx
+	$IsPartialShipment = false,
+	$PartialApprovalCapable = 'NotSet', // Capable | NotCapable | NotSet
 	$CashBackAmount = '0.00', // in a decimal format. used for PINDebit transactions
 	$CurrencyCode = '', // TypeISOA3 Currency Codes USD CAD
 	$SignatureCaptured = false, // boolean true or false
@@ -107,6 +113,8 @@ class transData {
 	$ReportingData = null,
 	$Creds = '',
 	$DateTime = '',
+	$IsQuasiCash = false,
+	$CFeeAmount = '0.00',
 	$AltMerchantData = null;
 }
 class transDataPro {
@@ -123,6 +131,8 @@ class transDataPro {
 	$CurrencyCode = '', // TypeISOA3 Currency Codes USD CAD
 	$SignatureCaptured = false, // boolean true or false
 	$TipAmount = '0.00', // in a decimal format
+	$IsPartialShipment = false,
+	$IsQuasiCash = false,
 	$PartialApprovalCapable = 'NotSet', // Capable | NotCapable | NotSet
 	$ApprovalCode = '',
 	$ReportingData = null,
@@ -451,8 +461,12 @@ class JSONClient {
 		$msgBody = str_replace('{"ApplicationProfileId"', '{"$type":"AuthorizeTransaction,http://schemas.ipcommerce.com/CWS/v2.0/Transactions/Rest","ApplicationProfileId"', $msgBody);
 		$msgBody = str_replace($txnString, $txnString.$TxnType, $msgBody);
 		$msgBody = str_replace($txnDataString, $txnDataString.$TxnDataType, $msgBody);
-		//$msgBody = str_replace(' ', '', $msgBody); // Make sure no spaces remain in the body.		
-		$response = curl_json($msgBody, $url, $action, $this->session_token);
+		$msgBody = str_replace('[[', '[', $msgBody); 
+		$msgBody = str_replace(']]', ']', $msgBody); 
+		$msgBody = str_replace('\/', '/', $msgBody); 	
+
+
+$response = curl_json($msgBody, $url, $action, $this->session_token);
 		if(isset($response->body->ErrorId))
 		{
 			handleRestFault($response);
@@ -487,7 +501,7 @@ class JSONClient {
 			$DifferenceData->Addendum = new Addendum ();
 			$DifferenceData->Addendum->Unmanaged = new Unmanaged ();
 			$DifferenceData->Addendum->Unmanaged->Any = new Any ();
-			$DifferenceData->Addendum->Unmanaged->Any->string = $creds;
+			$DifferenceData->Addendum->Unmanaged->Any = $creds;
 		}
 
 		// Build Capture
@@ -503,7 +517,9 @@ class JSONClient {
 		$msgBody = (string)json_encode($msgBody);
 		$msgBody = str_replace('{"ApplicationProfileId"', '{'.$CapType.'"ApplicationProfileId"', $msgBody);
 		$msgBody = str_replace($diffString, $diffString.$DiffType, $msgBody);		
-		$msgBody = str_replace(' ', '', $msgBody); // Make sure no spaces remain in the body.
+		$msgBody = str_replace('[[', '[', $msgBody); 
+		$msgBody = str_replace(']]', ']', $msgBody); 
+		$msgBody = str_replace('\/', '/', $msgBody); 
 		$response = curl_json($msgBody, $url, $action, $this->session_token);		
 		if(isset($response->body->ErrorId))
 		{
@@ -559,7 +575,9 @@ class JSONClient {
 		$msgBody = str_replace('{"ApplicationProfileId"', '{"$type":"AuthorizeAndCaptureTransaction,http://schemas.ipcommerce.com/CWS/v2.0/Transactions/Rest","ApplicationProfileId"', $msgBody);
 		$msgBody = str_replace($txnString, $txnString.$TxnType, $msgBody);
 		$msgBody = str_replace($txnDataString, $txnDataString.$TxnDataType, $msgBody);
-		$msgBody = str_replace(' ', '', $msgBody); // Make sure no spaces remain in the body.
+		$msgBody = str_replace('[[', '[', $msgBody); 
+		$msgBody = str_replace(']]', ']', $msgBody); 
+		$msgBody = str_replace('\/', '/', $msgBody); 
 		$response = curl_json($msgBody, $url, $action, $this->session_token);
 		if(isset($response->body->ErrorId))
 		{
@@ -599,7 +617,7 @@ class JSONClient {
 			$DifferenceData->Addendum = new Addendum ();
 			$DifferenceData->Addendum->Unmanaged = new Unmanaged ();
 			$DifferenceData->Addendum->Unmanaged->Any = new Any ();
-			$DifferenceData->Addendum->Unmanaged->Any->string = $creds;
+			$DifferenceData->Addendum->Unmanaged->Any = $creds;
 		}
 
 		// Build Capture 
@@ -614,8 +632,10 @@ class JSONClient {
 		$diffString = '"DifferenceData":{';		
 		$msgBody = (string)json_encode($msgBody);
 		$msgBody = str_replace('{"ApplicationProfileId"', '{'.$UndoType.'"ApplicationProfileId"', $msgBody);
-		$msgBody = str_replace($diffString, $diffString.$DiffType, $msgBody);		
-		$msgBody = str_replace(' ', '', $msgBody); // Make sure no spaces remain in the body.
+		$msgBody = str_replace($diffString, $diffString.$DiffType, $msgBody);	
+		$msgBody = str_replace('[[', '[', $msgBody); 
+		$msgBody = str_replace(']]', ']', $msgBody); 
+		$msgBody = str_replace('\/', '/', $msgBody); 
 		$response = curl_json($msgBody, $url, $action, $this->session_token);
 		if(isset($response->body->ErrorId))
 		{
@@ -647,7 +667,7 @@ class JSONClient {
 			$return_amount->Addendum = new Addendum ();
 			$return_amount->Addendum->Unmanaged = new Unmanaged ();
 			$return_amount->Addendum->Unmanaged->Any = new Any ();
-			$return_amount->Addendum->Unmanaged->Any->string = $creds;
+			$return_amount->Addendum->Unmanaged->Any = $creds;
 		}
 
 		// Build ReturnById
@@ -663,7 +683,9 @@ class JSONClient {
 		$msgBody = (string)json_encode($msgBody);
 		$msgBody = str_replace('{'.$txnTypeString, '{'.$TxnType.$txnTypeString, $msgBody);
 		$msgBody = str_replace($diffDataTypeString, $diffDataTypeString.$DiffDataType, $msgBody);		
-		$msgBody = str_replace(' ', '', $msgBody); // Make sure no spaces remain in the body.
+		$msgBody = str_replace('[[', '[', $msgBody); 
+		$msgBody = str_replace(']]', ']', $msgBody); 
+		$msgBody = str_replace('\/', '/', $msgBody); 
 		$response = curl_json($msgBody, $url, $action, $this->session_token);
 		if(isset($response->body->ErrorId))
 		{
@@ -706,7 +728,9 @@ class JSONClient {
 		$msgBody = str_replace('{'.$msgTypeString, '{'.$MsgType.$msgTypeString, $msgBody);
 		$msgBody = str_replace($txnTypeString, $txnTypeString.$TxnType, $msgBody);
 		$msgBody = str_replace($txnDataTypeString, $txnDataTypeString.$TxnDataType, $msgBody);			
-		//$msgBody = str_replace(' ', '', $msgBody); // Make sure no spaces remain in the body.
+		$msgBody = str_replace('[[', '[', $msgBody); 
+		$msgBody = str_replace(']]', ']', $msgBody); 
+		$msgBody = str_replace('\/', '/', $msgBody); 
 		$response = curl_json($msgBody, $url, $action, $this->session_token);
 		if(isset($response->body->ErrorId))
 		{
@@ -755,7 +779,7 @@ class JSONClient {
 				$DifferenceData [0]->Addendum = new Addendum ();
 				$DifferenceData [0]->Addendum->Unmanaged = new Unmanaged ();
 				$DifferenceData [0]->Addendum->Unmanaged->Any = new Any ();
-				$DifferenceData [0]->Addendum->Unmanaged->Any->string = $creds;
+				$DifferenceData [0]->Addendum->Unmanaged->Any = $creds;
 			}
 		}
 
@@ -776,7 +800,9 @@ class JSONClient {
 		$msgBody = (string)json_encode($msgBody);
 		$msgBody = str_replace('{"ApplicationProfileId"', '{'.$CapType.'"ApplicationProfileId"', $msgBody);
 		$msgBody = str_replace($diffString, $DiffType, $msgBody);		
-		$msgBody = str_replace(' ', '', $msgBody); // Make sure no spaces remain in the body.
+		$msgBody = str_replace('[[', '[', $msgBody); 
+		$msgBody = str_replace(']]', ']', $msgBody); 
+		$msgBody = str_replace('\/', '/', $msgBody); 
 		$response = curl_json($msgBody, $url, $action, $this->session_token);
 		if(isset($response->body->ErrorId))
 		{
@@ -809,13 +835,14 @@ class JSONClient {
 		// Build QueryTransactionsSummary
 		$qts = new QueryTransactionsSummary();
 		$qts->sessionToken = null; // Session token not included in body for REST message. 
-		$qts->queryTransactionsParameters = $queryTransactionParameters;
-		$qts->includeRelated = $includeRelated;
-		$qts->pagingParameters = $pagingParameters;					
+		
+		$qts->IncludeRelated = $includeRelated;
+		$qts->PagingParameters = $pagingParameters;	
+		$qts->QueryTransactionsParameters = $queryTransactionParameters;				
 		$action = 'POST';
 		$url = $this->tms.'/transactionsSummary';
-		if($qts->queryTransactionsParameters->MerchantProfileIds == '')  // Empty string not allowed for REST
-			$qts->queryTransactionsParameters->MerchantProfileIds = null;
+		if($qts->QueryTransactionsParameters->MerchantProfileIds == '')  // Empty string not allowed for REST
+			$qts->QueryTransactionsParameters->MerchantProfileIds = null;
 		$msgBody = (string)json_encode($qts);
 		$msgBody = str_replace('"sessionToken":null,', '', $msgBody);
 		$response = curl_json($msgBody, $url, $action, $this->session_token);
@@ -839,9 +866,9 @@ class JSONClient {
 		// Build QueryTransactionsSummary
 		$qtf = new QueryTransactionFamilies();
 		$qtf->sessionToken = null; // Session token not included in body for REST message. 
-		$qtf->queryTransactionsParameters = $queryTransactionParameters;
-		$qtf->includeRelated = $includeRelated;
-		$qtf->pagingParameters = $pagingParameters;						
+		$qtf->QueryTransactionsParameters = $queryTransactionParameters;
+		$qtf->IncludeRelated = $includeRelated;
+		$qtf->PagingParameters = $pagingParameters;						
 		$action = 'POST';
 		$url = $this->tms.'/transactionsFamily';
 		
@@ -877,10 +904,10 @@ class JSONClient {
 		// Build QueryTransactionsDetail
 		$qtd = new QueryTransactionsDetail();
 		$qtd->sessionToken = null; // Sessiontoken is not included in the body for REST
-		$qtd->queryTransactionsParameters = $queryTransactionParameters;
-		$qtd->includeRelated = $includeRelated;
-		$qtd->transactionDetailFormat = $transactionDetailFormat;
-		$qtd->pagingParameters = $pagingParameters;						
+		$qtd->QueryTransactionsParameters = $queryTransactionParameters;
+		$qtd->IncludeRelated = $includeRelated;
+		$qtd->TransactionDetailFormat = $transactionDetailFormat;
+		$qtd->PagingParameters = $pagingParameters;						
 		$action = 'POST';
 		$url = $this->tms.'/transactionsDetail';		
 

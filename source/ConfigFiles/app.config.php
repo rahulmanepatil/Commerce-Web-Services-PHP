@@ -13,7 +13,7 @@ class Settings
 	 */
 	const IdentityToken = '';
 	// encryption key value
-	const key = '1234567890123456ABCDEFGHIJKLMNOP';
+	const key = '1234567890123456ABCDEFGHIJKLMNOP'; // Used for Salt for encryption and decryption
 	// Application Data Values 
 	const ApplicationName = 'My Test App';
 	const SoftwareVersion = 'v1.0';
@@ -51,6 +51,7 @@ class Settings
 	const TxnData_SoftDescriptors = true;		// 'true', 'false'
 	// Support Tokenization
 	const TxnData_SupportTokenization = true; // 'true', 'false'
+	const TxnData_ProcessEncrypted = true;
 
 	// Process as a BankcardTransaction object or as a BankcardTransactionPro object
 	const ProcessAsBankcardTransaction_Pro = true;		// 'true', 'false' If set to true the following Pro parameters are required

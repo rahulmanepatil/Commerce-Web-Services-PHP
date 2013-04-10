@@ -54,6 +54,61 @@ function  setBCPTxnData($_serviceInformation) {
 		$tenderData->state = 'CO';
 		$tenderData->zip = '10101';
 	}
+	if (Settings::TxnData_ProcessEncrypted) {
+		$tenderData = new creditCard ();
+		//$tenderData->type = 'Visa';
+		// $tenderData->name = 'John Doe';
+		// $tenderData->number = '4111111111111111';
+		// $tenderData->expiration = '1012'; // MMYY
+		$tenderData->cvv = NULL; // Security code, For MagTek Always set to "Null". Value does not come from the device.
+		// $tenderData->address = '1000 1st Av';
+		// $tenderData->zip = '10101';
+		// $tenderData->track1 =
+		// 'B4111111111111111^IPCOMMERCE/TESTCARD^10121010454500415000010';
+		// $tenderData->track2 = '4111111111111111=10121010454541500010';
+		$tenderData->encryptionKeyId = '9010010B0C2472000021'; //20-character string returned by MagneSafe device when card is swiped.
+		$tenderData->securePaymentAccountData = '87936F09AE06386BA4CD81ADFF7DF0FA5AC1B28EF9F7B7075E415545F9B9095C0AC5FA12B9905325'; //Encrypted Track 2 data returned by MagneSafe device when card is swiped. 
+		$tenderData->identificationInformation = '9ED72A486AB36DC352957C2C00607E937D1D90CB8B09A8588629AABA8EAF0FD65296A4FBA490EECFCD8D5B350438C4BFA6A36FFA2ADAAA3E'; //Encrypted MagnePrint® Information returned by the MagneSafe™ device when card is swiped.
+		$tenderData->swipeStatus = '00304061'; //MagnePrint Status of Card Swipe. This is an alpha numeric string, returned by MagneSafe device when card is swiped.
+	}
+	if (!Settings::TxnData_ProcessEncrypted && !Settings::TxnData_ProcessAsKeyed) {
+		$tenderData = new creditCard ();
+		//$tenderData->type = 'Visa';
+		//$tenderData->name = 'John Doe';
+		//$tenderData->number = '4111111111111111';
+	 	//$tenderData->expiration = '1012'; // MMYY
+		//$tenderData->cvv = NULL; // Security code, For MagTek Always set to "Null". Value does not come from the device.
+		//$tenderData->address = '1000 1st Av';
+		//$tenderData->city = 'Denver';
+		//$tenderData->state = 'CO';
+		//$tenderData->zip = '10101';
+		// $tenderData->track1 =
+		// 'B4111111111111111^IPCOMMERCE/TESTCARD^10121010454500415000010';
+		$tenderData->track2 = '4111111111111111=10121010454541500010';
+		//$tenderData->encryptionKeyId = '9010010B0C2472000021'; //20-character string returned by MagneSafe device when card is swiped.
+		//$tenderData->securePaymentAccountData = '87936F09AE06386BA4CD81ADFF7DF0FA5AC1B28EF9F7B7075E415545F9B9095C0AC5FA12B9905325'; //Encrypted Track 2 data returned by MagneSafe device when card is swiped. 
+		//$tenderData->identificationInformation = '9ED72A486AB36DC352957C2C00607E937D1D90CB8B09A8588629AABA8EAF0FD65296A4FBA490EECFCD8D5B350438C4BFA6A36FFA2ADAAA3E'; //Encrypted MagnePrint® Information returned by the MagneSafe™ device when card is swiped.
+		//$tenderData->swipeStatus = '00304061'; //MagnePrint Status of Card Swipe. This is an alpha numeric string, returned by MagneSafe device when card is swiped.
+	}
+	if (Settings::TxnData_ProcessAsKeyed) {
+		$tenderData = new creditCard ();
+		$tenderData->type = 'Visa';
+		$tenderData->name = 'John Doe';
+		$tenderData->number = '4111111111111111';
+	 	$tenderData->expiration = '1012'; // MMYY
+		$tenderData->cvv = '111'; // Security code, For MagTek Always set to "Null". Value does not come from the device.
+		$tenderData->address = '1000 1st Av';
+		$tenderData->city = 'Denver';
+		$tenderData->state = 'CO';
+		$tenderData->zip = '10101';
+		// $tenderData->track1 =
+		// 'B4111111111111111^IPCOMMERCE/TESTCARD^10121010454500415000010';
+		// $tenderData->track2 = '4111111111111111=10121010454541500010';
+		//$tenderData->encryptionKeyId = '9010010B0C2472000021'; //20-character string returned by MagneSafe device when card is swiped.
+		//$tenderData->securePaymentAccountData = '87936F09AE06386BA4CD81ADFF7DF0FA5AC1B28EF9F7B7075E415545F9B9095C0AC5FA12B9905325'; //Encrypted Track 2 data returned by MagneSafe device when card is swiped. 
+		//$tenderData->identificationInformation = '9ED72A486AB36DC352957C2C00607E937D1D90CB8B09A8588629AABA8EAF0FD65296A4FBA490EECFCD8D5B350438C4BFA6A36FFA2ADAAA3E'; //Encrypted MagnePrint® Information returned by the MagneSafe™ device when card is swiped.
+		//$tenderData->swipeStatus = '00304061'; //MagnePrint Status of Card Swipe. This is an alpha numeric string, returned by MagneSafe device when card is swiped.
+	}
 
 
 	// Transaction information
@@ -61,10 +116,13 @@ function  setBCPTxnData($_serviceInformation) {
 	$transactionData = new transData ();
 	$transactionData->OrderNumber = '546846'; // Order Number needs to be unique
 	$transactionData->CustomerPresent = Settings::CustomerPresent; // Present, Ecommerce, MOTO, NotPresent
-	$transactionData->EmployeeId = '12'; //Used for Retail, Restaurant, MOTO
-	$transactionData->EntryMode = Settings::TxnData_EntryMode; // Keyed, TrackDataFromMSR
-	$transactionData->GoodsType = 'DigitalGoods'; // DigitalGoods - PhysicalGoods - Used only for Ecommerce	
-	//$transactionData->AccountType = ''; // SavingsAccount, CheckingAccount used only for PINDebit
+	$transactionData->EmployeeId = '12'; // Used for Retail, Restaurant, MOTO
+	
+	if ($encryptedTransaction)
+		$transactionData->EntryMode = 'Track2DataFromMSR'; // Keyed, TrackDataFromMSR For MagTek Enumeration set to EntryMode.Track2DataFromMSR. Value does not come from the device.
+	if (!$encryptedTransaction)
+		$transactionData->EntryMode = 'Keyed'; // Keyed, TrackDataFromMSR For MagTek Enumeration set to EntryMode.Track2DataFromMSR. Value does not come from the device.
+		
 	$transactionData->Amount = '10.00'; // in a decimal format xx.xx
 	//$transactionData->CashBackAmount = '0.00'; // in a decimal format. used for PINDebit transactions
 	$transactionData->CurrencyCode = 'USD'; // TypeISOA3 Currency Codes USD CAD
@@ -145,10 +203,12 @@ function  setBCPTxnData($_serviceInformation) {
 	$dateTime = new DateTime("now", new DateTimeZone('America/Denver'));
 	$transactionData->DateTime = $dateTime->format(DATE_RFC3339);
 
-	if ($_serviceInformation->BankcardServices->BankcardService->Tenders->CredentialsRequired)
-	{
-		$credentials = '<c:string>&lt;UserId&gt;'.Settings::TxnData_UserId.'&lt;/UserId&gt;</c:string>'.
-					   '<c:string>&lt;Password&gt;'.Settings::TxnData_Password.'&lt;/Password&gt;</c:string>';
+	if ($_serviceInformation->BankcardServices->BankcardService->Tenders->CredentialsRequired) {
+		$credentials = array ();
+		$credentials [] = array (
+				'<UserId>' . Settings::TxnData_UserId . '</UserId>',
+				'<Password>;' . Settings::TxnData_Password . '</Password>' 
+		);
 		$transactionData->Creds = $credentials;
 	}
 
